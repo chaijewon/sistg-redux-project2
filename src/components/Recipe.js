@@ -20,6 +20,7 @@ export default function Recipe(props) {
     const [page,setPage]=useState(1);
     const dispatch=useDispatch();
     useEffect(()=>{
+        console.log("dispatch:",dispatch)
         dispatch(fetchRecipe(page))
     },[])
     const recipe_data=useSelector(state=>state.foods.recipe)

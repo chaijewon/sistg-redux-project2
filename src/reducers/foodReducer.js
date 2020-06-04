@@ -1,4 +1,4 @@
-import {FETCH_NEWS,FETCH_RECIPE} from "../actions/types";
+import {FETCH_NEWS,FETCH_RECIPE,FETCH_CATEGORY,FETCH_CATE_FOOD} from "../actions/types";
 /*
    state={
       foods:{
@@ -43,9 +43,17 @@ const initialState={
                                             ajax
 
     dispatch({}
+
+    ()=>
+    (fd)=>
+    fd=>
+
+    (e)=>
+    e=>
  */
 export default function (state=initialState,action) {
-   switch (action.type) {
+    console.log("reducer function call...(action) 전송받음")
+    switch (action.type) {
        case FETCH_NEWS:
          return {
              ...state,
@@ -56,6 +64,16 @@ export default function (state=initialState,action) {
                ...state,
                recipe: action.payload
            }
+        case FETCH_CATEGORY:
+            return {
+                ...state,
+                category: action.payload
+            }
+        case FETCH_CATE_FOOD:
+            return {
+                ...state,
+                food:action.payload
+            }
        default:
            return state
    }

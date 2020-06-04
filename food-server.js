@@ -15,6 +15,13 @@ app.listen(3355,()=>{
     console.log("Server Start...","http://localhost:3355")
 })
 
+const path=require('path')
+// public 디렉터리의 내용을 자동으로 응답합니다. --- (※3)
+app.use('/', express.static('./public'))
+// 최상위 페이지에 접속하면 /public으로 리다이렉트합니다.
+app.get('/', function (request, response){
+    response.sendFile(path.resolve(__dirname, 'public', 'index.html'));
+})
 // 뉴스
 /*
       Java , React ==> import
@@ -74,6 +81,37 @@ app.get('/recipe',(req,res)=>{
         db.collection("recipe").find({}).skip(skip).limit(rowSize)
             .toArray((err,docs)=>{
                 res.json(docs)
+                client.close()
+            })
+    })
+})
+app.get('/category',(req,res)=>{
+
+    var url="mongodb://211.238.142.181:27017";
+    // 연결
+    Client.connect(url,(err,client)=>{
+        // Database (mydb)
+        var db=client.db("mydb")
+        // Table => Collection => recipe
+        db.collection("category").find({})
+            .toArray((err,docs)=>{
+                res.json(docs)
+                client.close()
+            })
+    })
+})
+app.get('/cate_food',(req,res)=>{
+    var cno=req.query.cno;
+    var url="mongodb://211.238.142.181:27017";
+    // 연결
+    Client.connect(url,(err,client)=>{
+        // Database (mydb)
+        var db=client.db("mydb")
+        // Table => Collection => recipe
+        db.collection("food").find({cno:Number(cno)})
+            .toArray((err,docs)=>{
+                res.json(docs)
+                console.log(docs)
                 client.close()
             })
     })

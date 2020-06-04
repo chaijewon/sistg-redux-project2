@@ -1,6 +1,7 @@
 import React ,{useEffect,useState} from "react";
 import {useDispatch,useSelector} from "react-redux";
 import {fetchNews} from "../actions/foodActions";
+import {FETCH_NEWS} from "../actions/types";
 /*
     class A
     {
@@ -13,13 +14,29 @@ import {fetchNews} from "../actions/foodActions";
 
     $('#id') => document.getElementById('id')
  */
+import axios from 'axios'
 export default function FoodNews(props) {
     const dispatch=useDispatch();
     const [fd,setFd]=useState('맛집');
     useEffect(()=>{
-        dispatch(fetchNews(fd))
+        //dispatch(fetchNews(fd))
+        axios.get('http://localhost:3355/news',{
+            params:{
+                fd:fd
+            }
+        }).then((result)=>{
+            dispatch({
+                type:FETCH_NEWS,
+                payload:result.data
+            })
+        })
     },[])
     //console.log(fd)
+    /*
+      useSelecter(state=>
+        state.foods.news
+      )
+     */
     const news_data=useSelector(state=>state.foods.news)
     //console.log(news_data)
     // 이벤트
@@ -27,7 +44,17 @@ export default function FoodNews(props) {
         setFd(e.target.value)
     }
     const onBtnClick=()=>{
-        dispatch(fetchNews(fd))
+        //dispatch(fetchNews(fd))
+        axios.get('http://localhost:3355/news',{
+            params:{
+                fd:fd
+            }
+        }).then((result)=>{
+            dispatch({
+                type:FETCH_NEWS,
+                payload:result.data
+            })
+        })
     }
     const html=news_data.map((m)=>
        <table className={"table"}>

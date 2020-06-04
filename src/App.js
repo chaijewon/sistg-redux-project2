@@ -9,6 +9,7 @@ import Recipe from './components/Recipe'
 import FoodNews from './components/FoodNews'
 import store from './store/store'
 import {Provider} from 'react-redux'
+import CateFoodList from './components/CateFoodList'
 // main
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
                 <Route path={"/recommand"} component={RecommandFoodHouse}/>
                 <Route path={"/recipe"} component={Recipe}/>
                 <Route path={"/news"} component={FoodNews}/>
+                <Route path={"/cate_food/:cno"} component={CateFoodList}/>
               </Switch>
             <Footer/>
           </Router>
